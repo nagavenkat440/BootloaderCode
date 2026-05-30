@@ -9,26 +9,29 @@ pipeline {
             }
         }
 
-        stage('Build Info') {
+        stage('Build STM32') {
             steps {
-                bat 'echo Building STM32 Bootloader Project'
+                bat '''
+                "C:\\ST\\STM32CubeIDE_1.15.1\\STM32CubeIDE\\stm32cubeidec.exe" ^
+                -data C:\\JenkinsWorkspace ^
+                -nosplash ^
+                -application org.eclipse.cdt.managedbuilder.core.headlessbuild ^
+                -importAll "%WORKSPACE%" ^
+                -cleanBuild "BootloaderCode/Release"
+                '''
             }
         }
 
-        stage('Verify Files') {
+        stage('Verify Artifacts') {
             steps {
-                bat 'dir'
+                bat 'dir Release'
             }
         }
     }
 
     post {
         success {
-            echo 'Build Successful'
-        }
-
-        failure {
-            echo 'Build Failed'
+            archiveArtifacts artifacts: 'Release/*.elf, Release/*.hex, Release/*.bin'
         }
     }
 }
