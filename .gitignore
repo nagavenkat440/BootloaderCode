@@ -23,6 +23,7 @@ Release/*.bin
 *.elf
 *.map
 *.list
+!Release/objects.list
 *.hex
 *.bin
 
