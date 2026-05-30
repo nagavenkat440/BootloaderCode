@@ -1,8 +1,21 @@
 # STM32CubeIDE
+
 Debug/
-Release/
+
+# Ignore generated build outputs only
+
+Release/*.o
+Release/*.d
+Release/*.su
+Release/*.cyclo
+Release/*.elf
+Release/*.map
+Release/*.list
+Release/*.hex
+Release/*.bin
 
 # Build files
+
 *.o
 *.d
 *.su
@@ -14,8 +27,10 @@ Release/
 *.bin
 
 # Eclipse
+
 .settings/
 .metadata/
 
 # Temporary files
+
 *.log
