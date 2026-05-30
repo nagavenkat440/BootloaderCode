@@ -1,7 +1,5 @@
 
-### Jenkinsfile should start with:
 
-```groovy
 pipeline {
     agent any
 
