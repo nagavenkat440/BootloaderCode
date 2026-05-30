@@ -30,6 +30,12 @@ stages {
         }
     }
 
+stage('Build Info') {
+    steps {
+        echo "Build Number: ${BUILD_NUMBER}"
+        echo "Git Commit: ${GIT_COMMIT}"
+    }
+}
     stage('Verify Artifacts') {
         steps {
             bat 'dir Release'
@@ -43,5 +49,28 @@ post {
     }
 }
 
+stage('Static Analysis')
+{
+    steps
+    {
+        bat 'cppcheck --enable=all Core Drivers'
+    }
+}
+
+stage('Unit Tests')
+{
+    steps
+    {
+        bat 'ceedling test:all'
+    }
+}
+
+stage('Flash STM32')
+{
+    steps
+    {
+        bat 'STM32_Programmer_CLI.exe -c port=SWD -d Release\\BootloaderCode.hex'
+    }
+}
 
 }

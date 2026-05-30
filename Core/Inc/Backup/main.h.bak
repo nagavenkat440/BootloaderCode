@@ -1,3 +1,4 @@
+/*Version: 1.0 */
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
@@ -198,6 +199,42 @@ void Error_Handler(void);
 #define WF_PKT_SIZE 128
 
 
+
+#define SLOT_A_START_ADDRESS 0x08020000UL
+#define SLOT_A_END_ADDRESS   0x0807FFFFUL
+
+#define METADATA_BASE_ADDRESS 0x080E0000UL
+
+#define EXT_FLASH_VERSION      0xE00
+#define INTERNAL_FLASH_VERSION 0xC00
+
+#define BOOT_METADATA_MAGIC 0x424F4F54534C4F54ULL
+
+
+#pragma pack(push, 1)
+
+typedef struct
+{
+    uint64_t signature;
+    uint64_t version;
+    uint64_t size;
+    uint64_t crc;
+} SlotMetadata;
+
+typedef struct
+{
+    uint64_t magic;
+    SlotMetadata slot_a;
+} BootMetadata;
+
+#pragma pack(pop)
+
+
+extern uint32_t post_start_time;
+
+uint16_t g_CRC_calc_continue(uint8_t *ptr,
+                             uint32_t pkt_size,
+                             uint16_t crc);
 
 #pragma pack(1)
 typedef struct
