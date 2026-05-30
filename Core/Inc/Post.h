@@ -1,0 +1,41 @@
+/*Version: 1.0 */
+/*
+ * Post.h
+ *
+ *  Created on: Dec 18, 2024
+ *      Author: RK
+ */
+
+#ifndef INC_POST_H_
+#define INC_POST_H_
+
+
+#pragma pack(1)
+typedef struct
+{
+	uint8_t IntFlashVer:1;
+	uint8_t ExtFlashVer:1;
+//	uint8_t InternalRAM_Status:1;
+	uint8_t IntFlashCRC:1;
+//	uint8_t ExtFlashCRC:1;
+	uint8_t RS422_CH1_Status:1;
+	uint8_t RS422_CH2_Status:1;
+	uint8_t POSITIVE_5V:1;
+	uint8_t POSITIVE_3P3V:1;
+	uint8_t NEGATIVE_5V:1;
+	uint8_t NEGATIVE_4P6V:1;
+	uint8_t POSITIVE_4P6V:1;
+	uint8_t DAC_CH1:1;
+	uint8_t DAC_CH2:1;
+	uint8_t DAC_CH3:1;
+	uint8_t DAC_CH4:1;
+	uint8_t DAC_CH5:1;
+	uint8_t DAC_CH6:1;
+	uint8_t DAC_CH7:1;
+	uint8_t DAC_CH8:1;
+	uint8_t POSITIVE_DIGITAL3P3V:1;
+}POST_Status;
+extern POST_Status g_POST_Status;
+
+extern uint16_t calculate_flash_crc(uint32_t start_addr, uint32_t total_size);
+#endif /* INC_POST_H_ */

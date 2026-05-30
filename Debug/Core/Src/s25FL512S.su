@@ -1,0 +1,10 @@
+../Core/Src/s25FL512S.c:49:6:SerialFlash_Init	8	static
+../Core/Src/s25FL512S.c:55:9:SerialFlash_IsWriteBusy	16	static
+../Core/Src/s25FL512S.c:67:6:SerialFlash_WriteEnable	8	static
+../Core/Src/s25FL512S.c:75:6:SerialFlash_WriteByte	16	static
+../Core/Src/s25FL512S.c:91:9:SerialFlash_ReadByte	16	static
+../Core/Src/s25FL512S.c:106:6:SerialFlash_ChipErase	8	static
+../Core/Src/s25FL512S.c:118:6:SerialFlash_SectorErase	24	static
+../Core/Src/s25FL512S.c:135:10:SerialFlash_ReadID	16	static
+../Core/Src/s25FL512S.c:151:9:ReadStatusRegister_1	8	static
+../Core/Src/s25FL512S.c:164:10:Sector_Start	24	static

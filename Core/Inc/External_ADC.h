@@ -1,0 +1,68 @@
+/*Version: 1.0 */
+/*
+ * External_ADC.h
+ *
+ *  Created on: Dec 3, 2024
+ *      Author:
+ */
+
+#ifndef INC_EXTERNAL_ADC_H_
+#define INC_EXTERNAL_ADC_H_
+
+#define EXT_ADC_1BIT 0.0006103515625
+#define OFFSET_5V 			3
+#define OFFSET_3P3V_ANA 	1.65
+#define OFFSET_4P6			2.3
+#define OFFSET_N4P6			2.3
+#define OFFSET_N5V			3
+#define OFFSET_3V3_DIG		0.9
+#define OFFSET_TEMP 		(0.509 + 2.64)
+
+extern void ExADC_ReadChannel(uint8_t channel);
+#pragma pack(1)
+typedef struct
+{
+	uint8_t IO_Status:4;
+	uint8_t IO_Enable:1;
+	uint8_t PWR_Mode:1;
+	uint8_t IN_Range:1;
+	uint8_t CH_No:4;
+	uint8_t Prog_Enable:1;
+	uint8_t Set_mode:4;
+}ManualMode;
+extern ManualMode ADC_ManualMode_Bits;
+#pragma pack(1)
+typedef struct
+{
+	uint16_t ADC_Data_RX:12;
+	uint16_t ADC_CH_ID:4;
+}ExtReceive;
+
+extern ExtReceive ADC_ExtReceive;
+typedef enum
+{
+	POSITIVE_5V=0,
+	POSITIVE_3P3V,
+	NEGATIVE_5V,
+	TEMPERATURE,
+	NEGATIVE_4P6V,
+	POSITIVE_4P6V,
+	DAC_CH1,
+	DAC_CH2,
+	DAC_CH3,
+	DAC_CH4,
+	DAC_CH5,
+	DAC_CH6,
+	DAC_CH7,
+	DAC_CH8,
+	POSITIVE_DIGITAL3P3V
+}AnalogVoltage;
+#pragma pack(1)
+typedef struct
+{
+	float AnaVoltages[14];
+	float Dig3P3;
+}ExtADC_Value;
+extern ExtADC_Value g_ExtADC_Value;
+
+#endif /* INC_EXTERNAL_ADC_H_ */

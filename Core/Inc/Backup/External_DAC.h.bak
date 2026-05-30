@@ -1,0 +1,203 @@
+/*
+ * External_DAC.h
+ *
+ *  Created on: Dec 4, 2024
+ *      Author:
+ */
+
+#ifndef INC_EXTERNAL_DAC_H_
+#define INC_EXTERNAL_DAC_H_
+
+#include "main.h"
+#include "spi.h"
+
+//#define CHIP_SELECT1_SPI1_LOW		HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_RESET)
+#define CHIP_SELECT1_SPI1_LOW		GPIOA->BSRR = GPIO_BSRR_BR_4; // Set chip select low//HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_RESET)
+//#define CHIP_SELECT1_SPI1_HIGH		HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_SET)
+#define CHIP_SELECT1_SPI1_HIGH		GPIOA->BSRR = GPIO_BSRR_BS_4; //HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_SET)
+//#define CHIP_SELECT2_SPI1_LOW		HAL_GPIO_WritePin(SPI1_CS2_GPIO_Port, SPI1_CS4_Pin, GPIO_PIN_RESET)
+#define CHIP_SELECT2_SPI1_LOW		GPIOC->BSRR = GPIO_BSRR_BR_4;//HAL_GPIO_WritePin(SPI1_CS2_GPIO_Port, SPI1_CS2_Pin, GPIO_PIN_RESET)
+//#define CHIP_SELECT2_SPI1_HIGH		HAL_GPIO_WritePin(SPI1_CS2_GPIO_Port, SPI1_CS2_Pin, GPIO_PIN_SET)
+#define CHIP_SELECT2_SPI1_HIGH		GPIOC->BSRR = GPIO_BSRR_BS_4;//HAL_GPIO_WritePin(SPI1_CS2_GPIO_Port, SPI1_CS2_Pin, GPIO_PIN_SET)
+#define DAC1_RESET_SET				HAL_GPIO_WritePin(DAC1_RESET_GPIO_Port, DAC1_RESET_Pin, GPIO_PIN_SET)
+#define DAC1_RESET_RESET			HAL_GPIO_WritePin(DAC1_RESET_GPIO_Port, DAC1_RESET_Pin, GPIO_PIN_RESET)
+#define DAC2_RESET_SET				HAL_GPIO_WritePin(DAC2_RESET_GPIO_Port, DAC2_RESET_Pin, GPIO_PIN_SET)
+#define DAC2_RESET_RESET			HAL_GPIO_WritePin(DAC2_RESET_GPIO_Port, DAC2_RESET_Pin, GPIO_PIN_RESET)
+#define DAC1_TRIGGER_SET			HAL_GPIO_WritePin(DAC1_Trigger_GPIO_Port, DAC1_Trigger_Pin, GPIO_PIN_SET)
+#define DAC1_TRIGGER_RESET			HAL_GPIO_WritePin(DAC1_Trigger_GPIO_Port, DAC1_Trigger_Pin, GPIO_PIN_RESET)
+#define DAC2_TRIGGER_SET			HAL_GPIO_WritePin(DAC2_Trigger_GPIO_Port, DAC2_Trigger_Pin, GPIO_PIN_SET)
+#define DAC2_TRIGGER_RESET			HAL_GPIO_WritePin(DAC2_Trigger_GPIO_Port, DAC2_Trigger_Pin, GPIO_PIN_RESET)
+
+// AD9106 Register Addresses
+#define AD9106_SPI_CONFIG_REG   0x00  // SPI Config Register
+#define AD9106_DDS_TUNING_REG   0x14  // DDS Tuning Word Register
+#define AD9106_RAM_UPDATE_REG   0x3F  // RAM Update Register
+
+#define ADDR_SPICONFIG			0x00
+#define ADDR_POWERCONFIG		0x01
+#define ADDR_CLOCKCONFIG		0x02
+#define ADDR_REFADJ				0x03
+#define ADDR_DAC4AGAIN			0x04
+#define ADDR_DAC3AGAIN			0x05
+#define ADDR_DAC2AGAIN			0x06
+#define ADDR_DAC1AGAIN			0x07
+#define ADDR_DACxRANGE			0x08
+#define ADDR_DAC4RSET			0x09
+#define ADDR_DAC3RSET			0x0A
+#define ADDR_DAC2RSET			0x0B
+#define ADDR_DAC1RSET			0x0C
+#define ADDR_CALCONFIG			0x0D
+#define ADDR_COMPOFFSET			0x0E
+#define ADDR_RAMUPDATE			0x1D
+#define ADDR_PAT_STATUS			0x1E
+#define ADDR_PAT_TYPE			0x1F
+#define ADDR_PATTERN_DLY		0x20
+#define ADDR_DAC4DOF			0x22
+#define ADDR_DAC3DOF			0x23
+#define ADDR_DAC2DOF			0x24
+#define ADDR_DAC1DOF			0x25
+#define ADDR_WAV4_3CONFIG		0x26
+#define ADDR_WAV2_1CONFIG		0x27
+#define ADDR_PAT_TIMEBASE		0x28
+#define ADDR_PAT_PERIOD			0x29
+#define ADDR_DAC4_3PATx			0x2A
+#define ADDR_DAC2_1PATx			0x2B
+#define ADDR_DOUT_START			0x2C
+#define ADDR_DOUT_CONFIG		0x2D
+#define ADDR_DAC4_CST			0x2E
+#define ADDR_DAC3_CST			0x2F
+#define ADDR_DAC2_CST			0x30
+#define ADDR_DAC1_CST			0x31
+#define ADDR_DAC4_DGAIN			0x32
+#define ADDR_DAC3_DGAIN			0x33
+#define ADDR_DAC2_DGAIN			0x34
+#define ADDR_DAC1_DGAIN			0x35
+#define ADDR_SAW4_3CONFIG		0x36
+#define ADDR_SAW2_1CONFIG		0x37
+#define ADDR_DDS_TW32			0x3E
+#define ADDR_DDS_TW1			0x3F
+#define ADDR_DDS4_PW			0x40
+#define ADDR_DDS3_PW			0x41
+#define ADDR_DDS2_PW			0x42
+#define ADDR_DDS1_PW			0x43
+#define ADDR_TRIG_TW_SEL		0x44
+#define ADDR_DDSx_CONFIG		0x45
+#define ADDR_TW_RAM_CONFIG		0x47
+#define ADDR_START_DLY4			0x50
+#define ADDR_START_ADDR4		0x51
+#define ADDR_STOP_ADDR4			0x52
+#define ADDR_DDS_CYC4			0x53
+#define ADDR_START_DLY3			0x54
+#define ADDR_START_ADDR3		0x55
+#define ADDR_STOP_ADDR3			0x56
+#define ADDR_DDS_CYC3			0x57
+#define ADDR_START_DLY2			0x58
+#define ADDR_START_ADDR2		0x59
+#define ADDR_STOP_ADDR2			0x5A
+#define ADDR_DDS_CYC2			0x5B
+#define ADDR_START_DLY1			0x5C
+#define ADDR_START_ADDR1		0x5D
+#define ADDR_STOP_ADDR1			0x5E
+#define ADDR_DDS_CYC1			0x5F
+#define ADDR_CFG_ERROR			0x60
+
+
+extern void ExtDac_Config();
+extern void AD9106_ConfigureDDS(uint32_t tuningWord);
+extern void AD9106_WriteRegister(uint16_t , uint16_t );
+void AD9106_WriteRegister_DAC1(uint16_t address, uint16_t data);
+void AD9106_WriteRegister_DAC2(uint16_t address, uint16_t data);
+extern uint8_t* AD9106_ReadRegister(uint16_t );
+#pragma pack(1)
+typedef struct
+{
+	uint16_t reg;
+	uint16_t value1;
+}WriteReg;
+extern WriteReg g_WriteReg;
+#pragma pack(1)
+typedef struct
+{
+	uint16_t reg;
+	uint16_t value1;
+}ReadReg;
+
+extern ReadReg g_ReadReg;
+
+#pragma pack(1)
+// Structure to hold the register configuration
+typedef struct {
+	uint16_t SPICONFIG;
+	uint16_t POWERCONFIG;
+	uint16_t CLOCKCONFIG;
+	uint16_t REFADJ;
+	uint16_t DAC4AGAIN;
+	uint16_t DAC3AGAIN;
+	uint16_t DAC2AGAIN;
+	uint16_t DAC1AGAIN;
+	uint16_t DACxRANGE;
+	uint16_t DAC4RSET;
+	uint16_t DAC3RSET;
+	uint16_t DAC2RSET;
+	uint16_t DAC1RSET;
+	uint16_t CALCONFIG;
+	uint16_t COMPOFFSET;
+	uint16_t PAT_TYPE;
+	uint16_t PATTERN_DLY;
+	uint16_t DAC4DOF;
+	uint16_t DAC3DOF;
+	uint16_t DAC2DOF;
+	uint16_t DAC1DOF;
+	uint16_t WAV4_3CONFIG;
+	uint16_t WAV2_1CONFIG;
+	uint16_t PAT_TIMEBASE;
+	uint16_t PAT_PERIOD;
+	uint16_t DAC4_3PATx;
+	uint16_t DAC2_1PATx;
+	uint16_t DOUT_START;
+	uint16_t DOUT_CONFIG;
+	uint16_t DAC4_CST;
+	uint16_t DAC3_CST;
+	uint16_t DAC2_CST;
+	uint16_t DAC1_CST;
+	uint16_t DAC4_DGAIN;
+	uint16_t DAC3_DGAIN;
+	uint16_t DAC2_DGAIN;
+	uint16_t DAC1_DGAIN;
+	uint16_t SAW4_3CONFIG;
+	uint16_t SAW2_1CONFIG;
+	uint16_t DDS_TW32;
+	uint16_t DDS_TW1;
+	uint16_t DDS4_PW;
+	uint16_t DDS3_PW;
+	uint16_t DDS2_PW;
+	uint16_t DDS1_PW;
+	uint16_t TRIG_TW_SEL;
+	uint16_t DDSx_CONFIG;
+	uint16_t TW_RAM_CONFIG;
+	uint16_t START_DLY4;
+	uint16_t START_ADDR4;
+	uint16_t STOP_ADDR4;
+	uint16_t DDS_CYC4;
+	uint16_t START_DLY3;
+	uint16_t START_ADDR3;
+	uint16_t STOP_ADDR3;
+	uint16_t DDS_CYC3;
+	uint16_t START_DLY2;
+	uint16_t START_ADDR2;
+	uint16_t STOP_ADDR2;
+	uint16_t DDS_CYC2;
+	uint16_t START_DLY1;
+	uint16_t START_ADDR1;
+	uint16_t STOP_ADDR1;
+	uint16_t DDS_CYC1;
+	uint16_t CFG_ERROR;
+	uint16_t RAMUPDATE;
+	uint16_t PAT_STATUS;
+}FTU_Configuration;
+
+extern FTU_Configuration ftu_config;
+
+extern void configure_registers(const FTU_Configuration *config);
+
+#endif /* INC_EXTERNAL_DAC_H_ */
