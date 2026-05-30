@@ -1,14 +1,13 @@
-
-stage('Clean Workspace') {
-    steps {
-        deleteDir()
-    }
-}
-
 pipeline {
     agent any
 
     stages {
+
+        stage('Clean Workspace') {
+            steps {
+                deleteDir()
+            }
+        }
 
         stage('Checkout') {
             steps {
@@ -17,21 +16,21 @@ pipeline {
         }
 
         stage('Build STM32') {
-    steps {
-        bat '''
-        set STM_WS=%WORKSPACE%\\stm_workspace
+            steps {
+                bat '''
+                set STM_WS=%WORKSPACE%\\stm_workspace
 
-        if exist "%STM_WS%" rmdir /s /q "%STM_WS%"
+                if exist "%STM_WS%" rmdir /s /q "%STM_WS%"
 
-        "C:\\ST\\STM32CubeIDE_1.15.1\\STM32CubeIDE\\stm32cubeidec.exe" ^
-        -data "%STM_WS%" ^
-        -nosplash ^
-        -application org.eclipse.cdt.managedbuilder.core.headlessbuild ^
-        -importAll "%WORKSPACE%" ^
-        -cleanBuild "BootloaderCode/Release"
-        '''
-    }
-}
+                "C:\\ST\\STM32CubeIDE_1.15.1\\STM32CubeIDE\\stm32cubeidec.exe" ^
+                -data "%STM_WS%" ^
+                -nosplash ^
+                -application org.eclipse.cdt.managedbuilder.core.headlessbuild ^
+                -importAll "%WORKSPACE%" ^
+                -cleanBuild "BootloaderCode/Release"
+                '''
+            }
+        }
 
         stage('Verify Artifacts') {
             steps {
@@ -42,7 +41,7 @@ pipeline {
 
     post {
         success {
-            archiveArtifacts artifacts: 'Release/*.elf, Release/*.hex, Release/*.bin'
+            archiveArtifacts artifacts: 'Release/*.elf,Release/*.hex,Release/*.bin'
         }
     }
 }
