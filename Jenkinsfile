@@ -1,7 +1,7 @@
 pipeline {
 agent any
 
-```
+
 stages {
 
     stage('Clean Workspace') {
@@ -42,6 +42,6 @@ post {
         archiveArtifacts artifacts: 'Release/*.elf,Release/*.hex,Release/*.bin,Release/*.map'
     }
 }
-```
+
 
 }
