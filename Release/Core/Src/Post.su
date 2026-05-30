@@ -1,3 +1,0 @@
-../Core/Src/Post.c:50:10:calculate_flash_crc	40	static
-../Core/Src/Post.c:87:6:postCheck	32	static
-../Core/Src/Post.c:497:13:Check_POST_Timeout	8	static
