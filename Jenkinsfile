@@ -53,11 +53,13 @@ pipeline {
             }
         }
 
-        stage('Static Analysis') {
-            steps {
-                bat 'cppcheck --version'
-            }
-        }
+       stage('Static Analysis') {
+    steps {
+        bat '''
+        cpptestcli -version
+        '''
+    }
+}
 
         stage('Unit Tests') {
             steps {
