@@ -1,0 +1,2 @@
+C:\Qt\Qt5.12.12\Tools\mingw730_64\bin\ar.exe qc ..\..\lib\libgtest.a "CMakeFiles/gtest.dir/src/gtest-all.cc.obj"
+C:\Qt\Qt5.12.12\Tools\mingw730_64\bin\ranlib.exe ..\..\lib\libgtest.a

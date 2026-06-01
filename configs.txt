@@ -1,0 +1,149 @@
+Parasoft C/C++test Professional 2025.1.0 (10.7.2.20250523B2782) -- Copyright (C) 2025 Parasoft Corporation
+
+Using default workspace "C:\Users\admin\parasoft\workspace".
+
+Available C++test configurations:
+  user://Example Configuration
+  builtin://AUTOSAR C++14 Coding Guidelines
+  builtin://Build and Run Application with Coverage Monitoring
+  builtin://Build and Run Application with Full Monitoring
+  builtin://Build and Run Application with Memory Monitoring for QNX Momentics
+  builtin://Build and Run Application with Memory Monitoring for Spansion FR Softune - Simulator
+  builtin://Build and Run Application with Memory Monitoring for targets with ssh service
+  builtin://Build and Run Application with Memory Monitoring
+  builtin://Build and Run Renesas Rx Application Monitoring Executable in e2 Studio
+  builtin://Build and Run Renesas Rx Unit Test Executable in e2 Studio
+  builtin://Build Application with Coverage Monitoring
+  builtin://Build Application with Full Monitoring
+  builtin://Build Application with Memory Monitoring
+  builtin://Build Renesas Rx Application Monitoring Executable in e2 Studio
+  builtin://Build Renesas Rx Unit Test Executable in e2 Studio
+  builtin://Build Test Executable (File Scope)
+  builtin://Build Test Executable - Generic Embedded System
+  builtin://Build Test Executable
+  builtin://Build VxWorks Test Executable - RTP (PassFS)
+  builtin://Build VxWorks Test Executable - RTP (Socket)
+  builtin://Build VxWorks Test Executable - RTP (TSFS)
+  builtin://Build VxWorks Test Module - DKM (PassFS)
+  builtin://Build VxWorks Test Module - DKM (TSFS)
+  builtin://Collect Stub Information (File Scope)
+  builtin://Collect Stub Information
+  builtin://CWE Top 25 + On the Cusp 2022
+  builtin://CWE Top 25 + On the Cusp 2023
+  builtin://CWE Top 25 2022
+  builtin://CWE Top 25 2023
+  builtin://Debug Unit Tests (File Scope)
+  builtin://Debug Unit Tests
+  builtin://DISA-ASD-STIG
+  builtin://DO178C Software Level A Unit Testing
+  builtin://DO178C Software Level B Unit Testing
+  builtin://DO178C Software Level C and D Unit Testing
+  builtin://Effective C++
+  builtin://Effective STL
+  builtin://Export Code Dependency Data
+  builtin://Extract Library Symbols
+  builtin://Extract Symbols from VxWorks Image
+  builtin://Find Duplicated Code
+  builtin://Find Unused Code
+  builtin://Flow Analysis Aggressive
+  builtin://Flow Analysis Fast
+  builtin://Flow Analysis Standard
+  builtin://Generate Regression Base
+  builtin://Generate Stubs (File Scope)
+  builtin://Generate Stubs Using External Library Symbols
+  builtin://Generate Stubs
+  builtin://Generate Test Suites
+  builtin://Generate Unit Tests
+  builtin://Global Analysis
+  builtin://High Integrity C++
+  builtin://HIS Source Code Metrics
+  builtin://ISO26262 ASIL A Unit Testing
+  builtin://ISO26262 ASIL B and C Unit Testing
+  builtin://ISO26262 ASIL D Unit Testing
+  builtin://Joint Strike Fighter
+  builtin://Load and Run VxWorks Test Executable (RTP)
+  builtin://Load and Run VxWorks Test Object (DKM)
+  builtin://Load Application Coverage
+  builtin://Load Archived Results
+  builtin://Load Test Results (Files)
+  builtin://Load Test Results (Sockets)
+  builtin://Metrics
+  builtin://MISRA C 1998
+  builtin://MISRA C 2004
+  builtin://MISRA C 2023 (MISRA C 2012)
+  builtin://MISRA C 2025
+  builtin://MISRA C++ 2008
+  builtin://MISRA C++ 2023
+  builtin://Modern C++ (11, 14 and 17)
+  builtin://OWASP API Security Top 10 2019
+  builtin://OWASP API Security Top 10 2023
+  builtin://OWASP Top 10 2017
+  builtin://OWASP Top 10 2021
+  builtin://Payment Card Industry Data Security Standard
+  builtin://Recommended Rules for FDA (C)
+  builtin://Recommended Rules for FDA (C++)
+  builtin://Recommended Rules
+  builtin://Run Altium TASKING CTC Application with Mem Monitoring
+  builtin://Run Altium TASKING CTC Tests
+  builtin://Run Application with Memory Monitoring using TRACE32 (FDX)
+  builtin://Run ARM Application with Memory Monitoring (QEMU for ARM simulator)
+  builtin://Run ARM Embedded Linux Application with Memory Monitoring
+  builtin://Run ARM Embedded Linux Test Executable
+  builtin://Run ARM Test Executable (QEMU for ARM simulator)
+  builtin://Run DS-5 Application with Memory Monitoring (FVP simulator)
+  builtin://Run DS-5 Test Executable (FVP simulator)
+  builtin://Run GHS Application with Mem Monitoring
+  builtin://Run GHS INTEGRITY Application with Mem Monitoring
+  builtin://Run GHS INTEGRITY Tests
+  builtin://Run GHS Tests with Assembly Coverage Monitoring
+  builtin://Run GHS Tests
+  builtin://Run GNU GCC Tests with Assembly Coverage Monitoring
+  builtin://Run HEW 4.x Application with Mem Monitoring (simulated IO)
+  builtin://Run HEW 4.x Tests (simulated IO)
+  builtin://Run Hexagon Clang Application with Memory Monitoring on Simulator
+  builtin://Run Hexagon Clang Unit Tests on Simulator
+  builtin://Run IAR ARM Application with Mem Monitoring
+  builtin://Run IAR ARM Tests
+  builtin://Run IAR EW Application with Mem Monitoring (Batch Template)
+  builtin://Run IAR EW Application with Mem Monitoring
+  builtin://Run IAR EW Tests (Batch Template)
+  builtin://Run IAR EW Tests
+  builtin://Run IAR MSP430 Application with Mem Monitoring
+  builtin://Run IAR MSP430 Tests
+  builtin://Run IAR RX Application with Mem Monitoring
+  builtin://Run IAR RX Tests
+  builtin://Run Keil uVision Application with Memory Monitoring - ULINK2 (UART)
+  builtin://Run Keil uVision Application with Memory Monitoring - ULINKPro or Simulator (ITM)
+  builtin://Run Keil uVision Tests - Simulator (UART)
+  builtin://Run Keil uVision Tests - ULINK2 (UART)
+  builtin://Run Keil uVision Tests - ULINKPro or Simulator (ITM)
+  builtin://Run Metaware ARC Application with Memory Monitoring in Simulator
+  builtin://Run Metaware ARC Unit Tests in Simulator
+  builtin://Run QNX Momentics Tests
+  builtin://Run RVDS 3.x 4.x Application with Memory Monitoring
+  builtin://Run RVDS 3.x 4.x Tests
+  builtin://Run Spansion FR Softune Tests - Simulator
+  builtin://Run Tests for targets with ssh service
+  builtin://Run Tests using TRACE32 (FDX)
+  builtin://Run TI CCS v4+ Application with Memory Monitoring
+  builtin://Run TI CCS v4+ Tests
+  builtin://Run Unit Tests (File Scope)
+  builtin://Run Unit Tests in Container
+  builtin://Run Unit Tests with Memory Monitoring
+  builtin://Run Unit Tests
+  builtin://Run VxWorks Application with Mem Monitoring - DKM (PassFS)
+  builtin://Run VxWorks Application with Mem Monitoring - DKM (TSFS)
+  builtin://Run VxWorks Application with Mem Monitoring - RTP (PassFS)
+  builtin://Run VxWorks Application with Mem Monitoring - RTP (TSFS)
+  builtin://Run VxWorks DKM Application with Full Monitoring (File System, WRWB 4.x)
+  builtin://Run VxWorks DKM Unit Tests (File System, WRWB 4.x)
+  builtin://Run VxWorks RTP Application with Full Monitoring (File System, WRWB 4.x)
+  builtin://Run VxWorks RTP Unit Tests (File System, WRWB 4.x)
+  builtin://Security Rules
+  builtin://SEI CERT C Guidelines
+  builtin://SEI CERT C Rules
+  builtin://SEI CERT C++ Rules
+  builtin://Sutter-Alexandrescu
+  builtin://The Power of Ten
+  builtin://UL 2900
+

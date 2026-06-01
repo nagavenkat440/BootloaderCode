@@ -1,0 +1,17 @@
+{
+  "tests": 1,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "PostCRC",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "BasicTest",
+          "file": "E:\\Krishna\\Qt_CICD_Demo\\FTU\\BootloaderCode\\Tests\\test_crc.cpp",
+          "line": 3
+        }
+      ]
+    }
+  ]
+}

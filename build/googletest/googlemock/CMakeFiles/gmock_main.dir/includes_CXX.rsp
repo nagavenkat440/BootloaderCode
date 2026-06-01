@@ -1,0 +1,1 @@
+-isystem E:/Krishna/Qt_CICD_Demo/FTU/BootloaderCode/googletest/googlemock/include -isystem E:/Krishna/Qt_CICD_Demo/FTU/BootloaderCode/googletest/googlemock -isystem E:/Krishna/Qt_CICD_Demo/FTU/BootloaderCode/googletest/googletest/include -isystem E:/Krishna/Qt_CICD_Demo/FTU/BootloaderCode/googletest/googletest

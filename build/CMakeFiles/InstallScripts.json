@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"E:/Krishna/Qt_CICD_Demo/FTU/BootloaderCode/build/cmake_install.cmake",
+		"E:/Krishna/Qt_CICD_Demo/FTU/BootloaderCode/build/googletest/cmake_install.cmake",
+		"E:/Krishna/Qt_CICD_Demo/FTU/BootloaderCode/build/googletest/googlemock/cmake_install.cmake",
+		"E:/Krishna/Qt_CICD_Demo/FTU/BootloaderCode/build/googletest/googletest/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
