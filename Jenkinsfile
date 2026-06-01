@@ -102,4 +102,3 @@ stage('ST-LINK Test') {
         archiveArtifacts artifacts: 'Release/*.elf,Release/*.hex,Release/*.bin,Release/*.map,Release/*.list'
     }
 }
-}
