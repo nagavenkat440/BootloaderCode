@@ -72,27 +72,27 @@ stage('Build Unit Tests') {
     }
 }
 
+stage('Run Unit Tests') {
+    steps {
+        bat '''
+        build\\runTests.exe --gtest_output=xml:test_results.xml
+        '''
+    }
+}
 
-        stage('Run Unit Tests') {
-            steps {
-                bat '''
-                build\\runTests.exe --gtest_output=xml:test_results.xml
-                '''
-            }
-        }
-
-        stage('Code Coverage') {
-            steps {
-                bat '''
-                python -m gcovr ^
-                -r . ^
-                --html ^
-                --html-details ^
-                -o coverage.html
-                '''
-            }
-        }
-
+stage('Code Coverage') {
+    steps {
+        bat '''
+        python -m gcovr ^
+        -r . ^
+        --filter "Core/Src/.*" ^
+        --exclude "googletest/.*" ^
+        --html ^
+        --html-details ^
+        -o coverage.html
+        '''
+    }
+}
         stage('Publish Coverage') {
             steps {
                 publishHTML([
