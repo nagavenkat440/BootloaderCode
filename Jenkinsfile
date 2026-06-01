@@ -16,14 +16,29 @@ pipeline {
         }
 
         stage('Build STM32') {
-            steps {
-                bat '''
-                cd Release
-                make clean
-                make -j16 all
-                '''
-            }
-        }
+    steps {
+        bat '''
+        set PATH=C:\\ST\\STM32CubeIDE_1.15.1\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.make.win32_2.1.300.202402091052\\tools\\bin;%PATH%
+
+        set PATH=C:\\ST\\STM32CubeIDE_1.15.1\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.100.202403111256\\tools\\bin;%PATH%
+
+        echo ===== TOOL CHECK =====
+
+        where make
+        where arm-none-eabi-gcc
+
+        make --version
+        arm-none-eabi-gcc --version
+
+        echo ===== BUILD =====
+
+        cd Release
+
+        make clean
+        make -j16 all
+        '''
+    }
+}
 
         stage('Build Info') {
             steps {
