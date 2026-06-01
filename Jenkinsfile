@@ -79,6 +79,16 @@ stages {
         }
     }
 
+stage('Code Coverage') {
+    steps {
+        bat '''
+        cpptestcli ^
+        -config "builtin://Unit Testing" ^
+        -resource . ^
+        -report reports
+        '''
+    }
+}
     stage('Flash STM32') {
         steps {
             bat '''
