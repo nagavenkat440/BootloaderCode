@@ -81,7 +81,33 @@ stages {
 
 stage('Code Coverage') {
     steps {
-        echo 'Code Coverage configuration pending'
+        bat '''
+        cpptestcli ^
+        -config "builtin://Build Application with Coverage Monitoring" ^
+        -resource . ^
+        -report reports
+        '''
+    }
+}
+
+
+stage('Generate Unit Tests') {
+    steps {
+        bat '''
+        cpptestcli ^
+        -config "builtin://Generate Unit Tests" ^
+        -resource .
+        '''
+    }
+}
+
+stage('Run Unit Tests') {
+    steps {
+        bat '''
+        cpptestcli ^
+        -config "builtin://Run Unit Tests" ^
+        -resource .
+        '''
     }
 }
     stage('Flash STM32') {
@@ -106,11 +132,8 @@ stage('Code Coverage') {
 
 post {
     success {
+        archiveArtifacts artifacts: 'reports/**/*.*'
         archiveArtifacts artifacts: 'Release/*.elf,Release/*.hex,Release/*.bin,Release/*.map,Release/*.list'
-    }
-
-    failure {
-        echo 'Build Failed'
     }
 }
 
