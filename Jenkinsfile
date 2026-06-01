@@ -56,7 +56,18 @@ pipeline {
        stage('Static Analysis') {
     steps {
         bat '''
-        cpptestcli -version
+        cpptestcli ^
+        -compiler gcc_11-64 ^
+        -config "builtin://Recommended Rules" ^
+        -resource .
+        '''
+    }
+}
+stage('ST-LINK Test') {
+    steps {
+        bat '''
+        "C:\\ST\\STM32CubeIDE_1.15.1\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_2.1.201.202404072231\\tools\\bin\\STM32_Programmer_CLI.exe" ^
+        -l stlink
         '''
     }
 }
@@ -67,16 +78,28 @@ pipeline {
             }
         }
 
-        stage('Flash STM32') {
-            steps {
-                echo 'Flashing STM32'
-            }
-        }
+       stage('Flash STM32') {
+    steps {
+        bat '''
+        echo ===== ST-LINK DETECTION =====
+
+        "C:\\ST\\STM32CubeIDE_1.15.1\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_2.1.201.202404072231\\tools\\bin\\STM32_Programmer_CLI.exe" ^
+        -l stlink
+
+        echo ===== FLASHING =====
+
+        "C:\\ST\\STM32CubeIDE_1.15.1\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_2.1.201.202404072231\\tools\\bin\\STM32_Programmer_CLI.exe" ^
+        -c port=SWD ^
+        -w Release\\BootloaderCode.hex ^
+        -v ^
+        -rst
+        '''
     }
+}
 
     post {
-        success {
-            archiveArtifacts artifacts: 'Release/*.elf,Release/*.hex,Release/*.bin,Release/*.map'
-        }
+    success {
+        archiveArtifacts artifacts: 'Release/*.elf,Release/*.hex,Release/*.bin,Release/*.map,Release/*.list'
     }
+}
 }
