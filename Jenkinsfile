@@ -58,21 +58,18 @@ pipeline {
         }
 
 stage('Build Unit Tests') {
-steps {
-bat '''
-if exist build rmdir /S /Q build
+    steps {
+        bat '''
+        if exist build rmdir /S /Q build
 
+        cmake -S . -B build ^
+        -G "MinGW Makefiles" ^
+        -DCMAKE_C_COMPILER=C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/gcc.exe ^
+        -DCMAKE_CXX_COMPILER=C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/g++.exe
 
-    cmake -S . -B build ^
-    -G "MinGW Makefiles" ^
-    -DCMAKE_C_COMPILER=C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/gcc.exe ^
-    -DCMAKE_CXX_COMPILER=C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/g++.exe
-
-    cmake --build build
-    '''
-}
-
-
+        cmake --build build
+        '''
+    }
 }
 
 
