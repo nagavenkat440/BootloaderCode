@@ -1,6 +1,14 @@
 pipeline {
 agent any
 
+ environment {
+    STM32_MAKE = 'C:\\ST\\STM32CubeIDE_2.0.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.make.win32_2.2.0.202409170845\\tools\\bin'
+
+    STM32_GCC = 'C:\\ST\\STM32CubeIDE_2.0.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.100.202509120712\\tools\\bin'
+
+    STM32_PROG = 'C:\\ST\\STM32CubeIDE_2.0.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_2.2.300.202508131133\\tools\\bin\\STM32_Programmer_CLI.exe'
+}
+
 
 stages {
 
@@ -17,23 +25,23 @@ stages {
     }
 
     stage('Build STM32') {
-        steps {
-            bat '''
-            set PATH=C:\\ST\\STM32CubeIDE_1.15.1\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.make.win32_2.1.300.202402091052\\tools\\bin;%PATH%
-            set PATH=C:\\ST\\STM32CubeIDE_1.15.1\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.100.202403111256\\tools\\bin;%PATH%
+    steps {
+        bat '''
+        set PATH=%STM32_MAKE%;%STM32_GCC%;%PATH%
 
-            where make
-            where arm-none-eabi-gcc
+        where make
+        where arm-none-eabi-gcc
 
-            make --version
-            arm-none-eabi-gcc --version
+        make --version
+        arm-none-eabi-gcc --version
 
-            cd Release
-            make clean
-            make -j16 all
-            '''
-        }
+        cd Release
+
+        make clean
+        make -j16 all
+        '''
     }
+}
 
     stage('Build Info') {
         steps {
@@ -106,29 +114,32 @@ stages {
         }
     }
 
-    stage('ST-LINK Test') {
-        steps {
-            catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-                bat '''
-                "C:\\ST\\STM32CubeIDE_1.15.1\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_2.1.201.202404072231\\tools\\bin\\STM32_Programmer_CLI.exe" -l stlink
-                '''
-            }
-        }
+stage('Verify CubeProgrammer') {
+    steps {
+        bat '''
+        dir "%STM32_PROG%"
+        "%STM32_PROG%" --version
+        '''
     }
+}
+
+    stage('ST-LINK Test') {
+    steps {
+        bat '"%STM32_PROG%" -l stlink'
+    }
+}
 
     stage('Flash STM32') {
-        steps {
-            catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-                bat '''
-                "C:\\ST\\STM32CubeIDE_1.15.1\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_2.1.201.202404072231\\tools\\bin\\STM32_Programmer_CLI.exe" ^
-                -c port=SWD ^
-                -w Release\\BootloaderCode.hex ^
-                -v ^
-                -rst
-                '''
-            }
-        }
+    steps {
+        bat '''
+        "%STM32_PROG%" ^
+        -c port=SWD ^
+        -w Release\\BootloaderCode.hex ^
+        -v ^
+        -rst
+        '''
     }
+}
 }
 
 post {
