@@ -43,6 +43,46 @@ stages {
     }
 }
 
+stage('Generate BDF') {
+    steps {
+        bat '''
+        set PATH=%STM32_MAKE%;%STM32_GCC%;%PATH%
+
+        cd Release
+
+        cpptesttrace ^
+        --cpptesttraceOutputFile=cpptest.bdf ^
+        make clean
+
+        cpptesttrace ^
+        --cpptesttraceOutputFile=cpptest.bdf ^
+        make -j16 all
+
+        dir cpptest.bdf
+        '''
+    }
+}
+
+stage('Parasoft Static Analysis') {
+    steps {
+        catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+            bat '''
+            cd Release
+
+            dir localsettings.properties
+            dir cpptest.bdf
+
+            cpptestcli ^
+            -config "builtin://Recommended Rules" ^
+            -bdf cpptest.bdf ^
+            -settings localsettings.properties ^
+            -report reports ^
+            -showdetails
+            '''
+        }
+    }
+}
+
     stage('Build Info') {
         steps {
             script {
@@ -143,14 +183,22 @@ stage('Verify CubeProgrammer') {
 }
 
 post {
-
     always {
         junit allowEmptyResults: true,
               testResults: 'test_results.xml'
-    }
 
-    success {
-        archiveArtifacts artifacts: 'coverage.html,test_results.xml,Release/*.elf,Release/*.hex,Release/*.bin,Release/*.map,Release/*.list'
+        archiveArtifacts allowEmptyArchive: true,
+                         artifacts: '''
+                         coverage.html,
+                         test_results.xml,
+                         Release/*.elf,
+                         Release/*.hex,
+                         Release/*.bin,
+                         Release/*.map,
+                         Release/*.list,
+                         Release/cpptest.bdf,
+                         Release/reports/**
+                         '''
     }
 
     failure {
