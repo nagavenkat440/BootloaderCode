@@ -67,9 +67,16 @@ stage('Parasoft Static Analysis') {
     steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
             bat '''
+            set PATH=%STM32_MAKE%;%STM32_GCC%;%PATH%
+
             cd Release
 
-            dir localsettings.properties
+            echo bdf.import.compiler.family=gcc_11-64 > localsettings.properties
+            echo bdf.import.c.compiler.exec=arm-none-eabi-gcc >> localsettings.properties
+            echo bdf.import.cpp.compiler.exec=arm-none-eabi-g++ >> localsettings.properties
+            echo bdf.import.linker.exec=arm-none-eabi-gcc >> localsettings.properties
+
+            type localsettings.properties
             dir cpptest.bdf
 
             cpptestcli ^
@@ -78,11 +85,17 @@ stage('Parasoft Static Analysis') {
             -settings localsettings.properties ^
             -report reports ^
             -showdetails
+
+            if exist reports (
+                echo Static Analysis Report Generated
+                dir reports
+            ) else (
+                echo Static Analysis Report NOT Generated
+            )
             '''
         }
     }
 }
-
     stage('Build Info') {
         steps {
             script {
